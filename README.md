@@ -23,7 +23,7 @@ A Dawnwalker-compatible UE4SS installation with Lua 5.4, native UFunction hooks,
 
 The mod generates `ShadowstepConfigurable/settings.ini` on first launch. With the game closed, you can edit its `[Settings]` entries and restart. Distances use metres, independently for each direction. `settings.ini.example` lists the defaults. The archive does not contain personal settings.
 
-**Logging** is the final menu setting and defaults to Off. Enable it for aggregate readiness attempt counts and elapsed time in `Dawnwalker/Binaries/Win64/ue4ss/UE4SS.log`, prefixed `[ShadowstepConfigurable]`. Distinct dependency, settings and property errors are reported once even with logging off. Readiness work stops after success or 20 attempts, then waits for a lifecycle event or a changed menu setting.
+**Logging** is the final menu setting and defaults to Off. Enable it for aggregate readiness attempt counts and elapsed time in `Dawnwalker/Binaries/Win64/ue4ss/UE4SS.log`, prefixed `[ShadowstepConfigurable]`. Distinct dependency, settings and property errors are reported once even with logging off. Description errors identify the failed text operation or skill-description function; they leave the range and speed controls available. Readiness work stops after success or 20 attempts, then waits for a lifecycle event or a changed menu setting.
 
 ## Source and packaging
 

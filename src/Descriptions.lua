@@ -60,7 +60,12 @@ function M.new(report)
                 number(horizontal),number(settings.upMetres),number(settings.downMetres),number(settings.speed))
         end,
         start=function()
-            if type(FText)~='function' then report('Description feature unavailable: FText constructor missing');return end
+            -- UE4SS exposes FText as userdata with __call. Probe the operation
+            -- on this game-thread callback instead of requiring a Lua function.
+            local ok,err=pcall(function()
+                assert(FText(''):ToString()=='','FText round-trip failed')
+            end)
+            if not ok then report('Description feature unavailable: FText construction failed: '..tostring(err));return end
             install('GetSkillDescription',{{'ReturnValue','TextProperty'}},function(context,result)
                 if not owns(context) then return end
                 return FText(result:get():ToString()..suffix)
