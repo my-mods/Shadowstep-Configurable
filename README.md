@@ -4,6 +4,8 @@ Adjust Shadowstep's horizontal distance, upward distance, downward distance and 
 
 The default is **18 metres** in each direction and **15 m/s** travel speed, matching the four defaults of Better Shadowstep Configurable 1.3. Each distance and speed can be adjusted from **1 to 50**. The settings affect the Shadowstep ability you have unlocked; skill unlocks, mutation costs, time costs and stamina costs retain their game behavior.
 
+**Shadow Dweller's skill panel reflects your settings.** Its main description lists the configured horizontal, upward and downward ranges and travel speed. Both upgrade descriptions show the configured horizontal range while preserving the game's stamina-cost text. After Apply, reopen the skill panel to refresh it. Disabled restores the original descriptions. The added summary uses English labels; existing localized descriptions and other skills are preserved.
+
 **Enabled** turns the overrides on or off. Turning it off restores captured values that are still owned by this mod, preserving values subsequently changed by the game or another mod. Settings apply on startup, save loading, local player restart and menu changes. There is no recurring settings poll or global attribute scan.
 
 ## Dependencies
@@ -25,7 +27,7 @@ The mod generates `ShadowstepConfigurable/settings.ini` on first launch. With th
 
 ## Source and packaging
 
-The implementation is Lua; no native compiler is required. Copy all six files from `src` into `Data/ShadowstepConfigurable/Scripts`. Copy `package/enabled.txt` and `package/mod_settings.ini` into `Data/ShadowstepConfigurable`. Place `package/mod.manifest`, this README as `README.txt`, `LICENSE` as `LICENSE.txt`, `LICENSES`, the changelog, release notes, example INI and provenance JSON files at archive root. Zip the resulting contents as `Shadowstep-Configurable.zip`.
+The implementation is Lua; no native compiler is required. Copy all seven files from `src` into `Data/ShadowstepConfigurable/Scripts`. Copy `package/enabled.txt` and `package/mod_settings.ini` into `Data/ShadowstepConfigurable`. Place `package/mod.manifest`, `package/vortex_override_instructions.json`, this README as `README.txt`, `LICENSE` as `LICENSE.txt`, `LICENSES`, the changelog, release notes, example INI and provenance JSON files at archive root. Zip the resulting contents as `Shadowstep-Configurable.zip`.
 
 ## Credits
 

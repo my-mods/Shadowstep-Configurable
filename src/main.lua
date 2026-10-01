@@ -11,6 +11,7 @@ for _,name in ipairs({'ExecuteInGameThread','ExecuteInGameThreadWithDelay','Canc
     if type(_G[name])~='function' then report('Required UE4SS API missing: '..name);return end
 end
 local values=require('Values').new(report)
+local descriptions=require('Descriptions').new(report)
 local function valid(o) return o~=nil and o:IsValid()==true end
 local function same(a,b) return valid(a) and valid(b) and a:GetAddress()==b:GetAddress() end
 local engine,gameplay,playerClass,scope,worker,reloadSettings
@@ -88,6 +89,7 @@ local function apply(snapshot)
         if key~='debugLogging' and settings[key]~=value then changed=true end
         settings[key]=value
     end
+    descriptions.configure(settings)
     if not changed and scope then return end
     if settings.enabled~=1 then
         cancel()
@@ -104,6 +106,7 @@ local function hook(path,pre,post)
 end
 ExecuteInGameThread(guarded(function()
     reloadSettings=require('Settings').start(directory,guarded(apply),report)
+    descriptions.start()
     hook('/Script/Engine.PlayerController:ClientRestart',function() end,guarded(function(context)
         local pc=context:get()
         if valid(pc) and pc:IsLocalController()==true then cancel();wake('player restart') end
