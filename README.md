@@ -10,7 +10,7 @@ The default is **18 metres** in each direction and **15 m/s** travel speed, matc
 
 ## Dependencies
 
-A Dawnwalker-compatible UE4SS installation with Lua 5.4, native UFunction hooks, EngineTick game-thread dispatch, delayed one-shot actions and cancellation. The implementation supports the required API paths in **Vercadi RC6** and **Framecore 2b Performance** profiles; it does not require LoadMap or Blueprint script dispatch.
+Requires [UE4SS for Dawnwalker by Vercadi](https://www.nexusmods.com/thebloodofdawnwalker/mods/18) **1.3 (RC6) or later**. The mod uses Lua 5.4, native UFunction hooks, EngineTick game-thread dispatch, delayed actions and cancellation; LoadMap and Blueprint script dispatch are not required.
 
 **Dawnwalker Mod Menu 1.0.6 or later** provides the in-game controls and live Apply. Its console bridge requires `HookProcessConsoleExec=1`. Without the menu, use the generated INI.
 
