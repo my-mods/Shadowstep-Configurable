@@ -4,4 +4,4 @@ horizontalMetres = 18
 upMetres = 18
 downMetres = 18
 speed = 15
-debugLogging = 0
+logLevel = 2

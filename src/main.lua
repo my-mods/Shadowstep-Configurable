@@ -1,14 +1,17 @@
+local Log=require('ModLog')
+local logDirectory=assert(debug.getinfo(1,'S').source:match('^@(.+[\\/])'))
+Log.initialize(logDirectory)
 -- Shadowstep - Configurable. Independent reflected-property implementation.
 local directory=assert(debug.getinfo(1,'S').source:match('^@(.+[\\/])'))
-local settings={enabled=1,horizontalMetres=18,upMetres=18,downMetres=18,speed=15,debugLogging=0}
+local settings={enabled=1,horizontalMetres=18,upMetres=18,downMetres=18,speed=15,logLevel=2}
 local warned,warningCount={},0
 local function report(message)
     if warned[message] or warningCount>=32 then return end
     warned[message]=true;warningCount=warningCount+1
-    print('[ShadowstepConfigurable] '..message..'\n')
+    Log.warning(message)
 end
 for _,name in ipairs({'ExecuteInGameThread','ExecuteInGameThreadWithDelay','CancelDelayedAction','RegisterHook','FindFirstOf','StaticFindObject'}) do
-    if type(_G[name])~='function' then report('Required UE4SS API missing: '..name);return end
+    if type(_G[name])~='function' then Log.error('Required UE4SS API missing: '..name);return end
 end
 local values=require('Values').new(report)
 local descriptions=require('Descriptions').new(report)
@@ -62,16 +65,16 @@ wake=function(reason)
     local function attempt()
         if worker~=job or generation~=job.generation then return end
         job.handle=nil;job.attempts=job.attempts+1
-        local start=settings.debugLogging==1 and os.clock() or nil
+        local start=settings.logLevel==4 and os.clock() or nil
         local ok,ready=pcall(discover,job)
         if start then job.elapsed=job.elapsed+os.clock()-start end
         if worker~=job or generation~=job.generation or loading then return end
-        if not ok then worker=nil;report('Readiness stopped: '..tostring(ready));return end
+        if not ok then worker=nil;Log.error('Readiness stopped: '..tostring(ready));return end
         if ready or job.attempts>=20 then
             worker=nil
             if not ready then report('Readiness exhausted after 20 attempts; waiting for a load, player event or menu Apply.') end
-            if settings.debugLogging==1 then
-                print(string.format('[ShadowstepConfigurable] %s: %d attempt(s), %.3f ms total, ready=%s.\n',reason,job.attempts,job.elapsed*1000,tostring(ready)))
+            if settings.logLevel==4 then
+                Log.debug(string.format('[ShadowstepConfigurable] %s: %d attempt(s), %.3f ms total, ready=%s.\n',reason,job.attempts,job.elapsed*1000,tostring(ready)))
             end
         else job.handle=ExecuteInGameThreadWithDelay(250,attempt) end
     end
@@ -80,15 +83,17 @@ end
 local function guarded(fn)
     return function(...)
         local ok,err=pcall(fn,...)
-        if not ok then cancel();report('Operation stopped: '..tostring(err)) end
+        if not ok then cancel();Log.error('Operation stopped: '..tostring(err)) end
     end
 end
 local function apply(snapshot)
+    Log.setLevel(snapshot.logLevel)
     local changed=false
     for key,value in pairs(snapshot) do
-        if key~='debugLogging' and settings[key]~=value then changed=true end
+        if key~='logLevel' and settings[key]~=value then changed=true end
         settings[key]=value
     end
+    Log.info('Settings applied.')
     descriptions.configure(settings)
     if not changed and scope then return end
     if settings.enabled~=1 then

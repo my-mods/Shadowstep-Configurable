@@ -6,7 +6,7 @@ M.schema = {
     {key='upMetres',min=1,max=50,default=18},
     {key='downMetres',min=1,max=50,default=18},
     {key='speed',min=1,max=50,default=15},
-    {key='debugLogging',values={0,1},default=0},
+    {key='logLevel',values={0,1,2,3,4},default=2},
 }
 function M.start(directory, apply, report)
     local ids, defaults = {}, {}
@@ -14,14 +14,14 @@ function M.start(directory, apply, report)
     local live = require('UE4SSDawnwalkerSettings').new({
         modId='ShadowstepConfigurable',schema=M.schema,ids=ids,report=report,
     })
-    live.attach(apply)
+    live.attach(function(values) require('ModLog').setLevel(values.logLevel);apply(values) end)
     local function reload()
-        local values,err=Store.load(directory,M.schema,function() return defaults end)
-        if values then live.seed(values);apply(values)
+        local values,err=require('LogSettings').load(Store.path(directory),M.schema)
+        if values then require('ModLog').setLevel(values.logLevel);live.seed(values);apply(values)
         else report('Settings: '..tostring(err)..'; previous values retained.') end
     end
     reload()
-    live.start(function(id,callback) return require('dmm_api').subscribe(id,callback) end)
+    live.start(function(id,callback) return require('ModLog').subscribe(directory,id,callback) end)
     return reload
 end
 return M

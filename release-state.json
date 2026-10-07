@@ -49,10 +49,10 @@
         "VortexExtension"
       ],
       "pending": {
-        "impact": "patch",
-        "rationale": "Add consistent installer version metadata and identifiable development packages to the audited local baseline.",
+        "impact": "minor",
+        "rationale": "Complete audited-baseline delta: installer/development provenance metadata and source provenance corrections; add compatible cumulative five-level Logging with preserving schema completion and immediate menu application.",
         "majorOverride": false,
-        "reviewedInputs": "d71905fbd0ba71b603391493eba70bc9479e7ca6ae93cb8d565c44698741d778",
+        "reviewedInputs": "19d3f684195549c22a87cb2bb590c605e5a8483c0891a2ec393a4f422196c2c1",
         "divergenceReviewed": false
       }
     }

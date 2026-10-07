@@ -23,7 +23,7 @@ Requires [UE4SS for Dawnwalker by Vercadi](https://www.nexusmods.com/thebloodofd
 
 The mod generates `ShadowstepConfigurable/settings.ini` on first launch. With the game closed, you can edit its `[Settings]` entries and restart. Distances use metres, independently for each direction. `settings.ini.example` lists the defaults. The archive does not contain personal settings.
 
-**Logging** is the final menu setting and defaults to Off. Enable it for aggregate readiness attempt counts and elapsed time in `Dawnwalker/Binaries/Win64/ue4ss/UE4SS.log`, prefixed `[ShadowstepConfigurable]`. Distinct dependency, settings and property errors are reported once even with logging off. Description errors identify the failed text operation or skill-description function; they leave the range and speed controls available. Readiness work stops after success or 20 attempts, then waits for a lifecycle event or a changed menu setting.
+**Logging** is the final menu setting and defaults to Warning. Select Debug for aggregate readiness attempt counts and elapsed time in `Dawnwalker/Binaries/Win64/ue4ss/UE4SS.log`, prefixed `[ShadowstepConfigurable]`. Distinct dependency, settings and property errors are reported once at Warning or higher. Description errors identify the failed text operation or skill-description function; they leave the range and speed controls available. Readiness work stops after success or 20 attempts, then waits for a lifecycle event or a changed menu setting.
 
 ## Source and packaging
 
@@ -32,3 +32,9 @@ The implementation is Lua; no native compiler is required. Copy all seven files 
 ## Credits
 
 Inspired by [Better Shadowstep by Caites](https://www.nexusmods.com/thebloodofdawnwalker/mods/60). This independent implementation includes none of that mod's scripts or assets. Rebel Wolves created The Blood of Dawnwalker. UE4SS provides the runtime. Dawnwalker Mod Menu by mmarcussa provides the settings UI and unchanged integration helper. The bundled [ue4ss-common](https://github.com/my-mods/ue4ss-common) settings modules are MIT licensed; see `LICENSES`.
+
+### Logging levels
+
+The final **Logging** setting offers **Off**, **Error**, **Warning** (default), **Info**, and **Debug**. Levels are cumulative: Error reports stopped features, Warning adds degraded capabilities, Info adds normal lifecycle events, and Debug adds detailed tracing and aggregate timings. Off silences all output from this mod. The numeric INI key is `logLevel` (0–4). Set Logging to Debug, Apply, reproduce an issue, and include `Dawnwalker/Binaries/Win64/ue4ss/UE4SS.log` in your report.
+
+An existing logging On choice becomes Debug; an existing Off choice becomes Warning. An explicit new level always takes precedence. Other settings and comments are retained during this startup conversion.
