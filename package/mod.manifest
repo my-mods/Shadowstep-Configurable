@@ -5,7 +5,7 @@
     <modid>ShadowstepConfigurable</modid>
     <description>Adjust Shadowstep distances and travel speed in Mod Settings.</description>
     <author>oOCamilleOo</author>
-    <version>0.1.0</version>
+    <version>0.1.1-dev</version>
     <created_on>2026-10-01</created_on>
   </info>
   <supports>

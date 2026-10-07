@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "packages": {
+    "main": {
+      "id": "ShadowstepConfigurable",
+      "name": "Shadowstep - Configurable",
+      "archive": "Shadowstep-Configurable.zip",
+      "packageFormat": 1,
+      "baseline": {
+        "kind": "local",
+        "version": "0.1.0",
+        "normalizedVersion": "0.1.0",
+        "sourceCommit": "71396d6589c8a384324df720e47f91f11ae4824b",
+        "sourceTag": null,
+        "archiveSha256": "d50733b77130fb3c06d6897e1232c31fed2f0b6dba8be72c11a0117c20e3df9d",
+        "verifiedAt": "2026-10-07",
+        "nexus": null
+      },
+      "bindings": [
+        {
+          "path": "SOURCE.json",
+          "jsonPointer": [
+            "version"
+          ],
+          "members": [
+            "SOURCE.json"
+          ]
+        },
+        {
+          "path": "package/mod.manifest",
+          "pattern": "<version>(?P<version>[^<]+)</version>",
+          "count": 1,
+          "members": [
+            "mod.manifest"
+          ]
+        },
+        {
+          "path": "package/mod_settings.ini",
+          "pattern": "^Version\\s*=\\s*(?P<version>[^\\r\\n]+)",
+          "count": 1,
+          "members": [
+            "Data/ShadowstepConfigurable/mod_settings.ini"
+          ]
+        }
+      ],
+      "excludePaths": [
+        "Optional",
+        "Compatibility",
+        "VortexExtension"
+      ],
+      "pending": {
+        "impact": "patch",
+        "rationale": "Add consistent installer version metadata and identifiable development packages to the audited local baseline.",
+        "majorOverride": false,
+        "reviewedInputs": "d71905fbd0ba71b603391493eba70bc9479e7ca6ae93cb8d565c44698741d778",
+        "divergenceReviewed": false
+      }
+    }
+  }
+}

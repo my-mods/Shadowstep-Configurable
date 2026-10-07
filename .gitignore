@@ -3,3 +3,5 @@ AGENTS.md
 agent-notes/
 *.pyc
 __pycache__/
+
+/Shadowstep-Configurable.zip
